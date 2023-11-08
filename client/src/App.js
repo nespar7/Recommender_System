@@ -22,6 +22,8 @@ function App() {
 					path="register"
 					element={user ? <Navigate to="/" /> : <Register />}
 				/>
+				{/* For unknown routes redirect to '/' */}
+				<Route path="*" element={<Navigate to="/" />} />
 			</Routes>
 		</Router>
 	);

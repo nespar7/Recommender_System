@@ -2,3 +2,5 @@ api/node_modules
 api/.env
 client/node_modules
 .vscode/
+synthesize/.env
+synthesize/products.csv

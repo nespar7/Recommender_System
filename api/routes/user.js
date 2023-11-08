@@ -19,7 +19,7 @@ router.put("/:id", async (req, res) => {
 		} else if (type === "purchase") {
 			user.interactions = user.interactions.map((interaction) => {
 				if (interaction.tag in tags) {
-					interaction.score += 2;
+					interaction.score += 4;
 				}
 				return interaction;
 			});
@@ -36,5 +36,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // router.get("/", async());
+
+router.get("/recommendations", async (req, res) => {});
 
 module.exports = router;

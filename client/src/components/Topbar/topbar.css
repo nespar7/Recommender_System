@@ -25,5 +25,11 @@
 .topbarRight {
     flex: 9;
     display: flex;
-    justify-content: space-around;
+    justify-content: end;
+    margin-right: 16px;
+    color: aliceblue;
+}
+
+.logout {
+    cursor: pointer;
 }

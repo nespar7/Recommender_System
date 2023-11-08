@@ -5,6 +5,8 @@ const Product = require("../models/Product");
 
 // add product
 router.post("/", async (req, res) => {
+	// search for existing product
+
 	const newProduct = new Product({
 		_id: new mongoose.Types.ObjectId(),
 		name: req.body.name,
@@ -15,6 +17,12 @@ router.post("/", async (req, res) => {
 	});
 
 	try {
+		const product = await Product.findOne({ name: req.body.name });
+
+		if (product) {
+			res.status(409).send("Product already exists");
+		}
+
 		const savedProduct = await newProduct.save();
 		console.log("something added");
 		res.status(201).json(savedProduct);
@@ -27,9 +35,11 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
 	const currentProduct = await Product.findById(req.params.id);
 	const score = req.body.reviewScore;
-	currentProduct.reviewScore = currentProduct.reviewScore * currentProduct.reviews + score;
+	currentProduct.reviewScore =
+		currentProduct.reviewScore * currentProduct.reviews + score;
 	currentProduct.reviews += 1;
-	currentProduct.reviewScore = currentProduct.reviewScore / currentProduct.reviews;
+	currentProduct.reviewScore =
+		currentProduct.reviewScore / currentProduct.reviews;
 
 	await currentProduct.updateOne({ $set: req.body });
 	res.status(200).json({ message: "product updated" });
@@ -45,7 +55,7 @@ router.get("/", async (req, res) => {
 	}
 });
 
-// get product by tag
+// get product by id
 router.get("/:id", async (req, res) => {
 	try {
 		const product = await Product.findById(req.params.id);

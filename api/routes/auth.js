@@ -8,15 +8,15 @@ const mongoose = require("mongoose");
 router.post("/create", async (req, res) => {
 	console.log(req.body);
 	try {
-		const salt = await bcrypt.genSalt(7);
-		const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
 		// Search for existing user
 		const search = await User.findOne({ username: req.body.username });
 
 		if (search) {
 			res.status(409).send("Username already exists");
 		}
+
+		const salt = await bcrypt.genSalt(7);
+		const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
 		const newUser = new User({
 			_id: new mongoose.Types.ObjectId(),

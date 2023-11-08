@@ -27,3 +27,12 @@ export const logoutCall = async (dispatch) => {
 	dispatch({ type: "LOGOUT" });
 	localStorage.removeItem("user");
 };
+
+export const getProductByIdCall = async (id) => {
+	try {
+		const res = await axios.get("api/product/" + id);
+		return res.data;
+	} catch (e) {
+		console.log(e);
+	}
+};
