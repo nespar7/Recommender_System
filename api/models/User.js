@@ -10,9 +10,10 @@ const userSchema = mongoose.Schema({
 			score: {
 				type: Number,
 				default: 0,
-			}
+			},
 		},
 	],
+	mostRelevantTags: [String],
 });
 
 module.exports = mongoose.model("User", userSchema);
