@@ -7,12 +7,7 @@ const productSchema = mongoose.Schema({
 	productImage: String,
 	description: String,
 	tags: [String],
-	// A float review score between 1 and 5(inclusive)
-	reviewScore: {
-		type: Number,
-		default: 0,
-	},
-	reviews: {
+	interactions: {
 		type: Number,
 		default: 0,
 	},

@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
 			},
 		},
 	],
+	mostRelevantTags: [String],
 });
 
 module.exports = mongoose.model("User", userSchema);
