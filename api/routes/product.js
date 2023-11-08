@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product");
+const User = require("../models/User");
 
 // add product
 router.post("/", async (req, res) => {
@@ -50,6 +51,47 @@ router.get("/", async (req, res) => {
 	try {
 		const products = await Product.find();
 		res.status(200).json(products);
+	} catch (err) {
+		res.status(500).json({ message: err });
+	}
+});
+
+// on receiving the tags array, sort it by number of tag matches and then by review score
+router.get("/search", async (req, res) => {
+	try {
+		const products = await Product.find();
+		const searchTags = req.body.tags;
+		const userId = req.body.userId;
+		const user = User.findById(userId);
+		const userTags = user.mostRelevantTags;
+		// append userTags to searchTags
+		userTags.forEach((tag) => {
+			if (!searchTags.includes(tag)) {
+				searchTags.push(tag);
+			}
+		});
+		let productArray = [];
+
+		// loop through products and find number of matching tags
+		products.forEach((product) => {
+			let matches = 0;
+			product.tags.forEach((tag) => {
+				if (searchTags.includes(tag)) {
+					matches += 1;
+				}
+			});
+			productArray.push({ product: product, matches: matches });
+		});
+
+		// sort by number of matches
+		productArray.sort((a, b) => {
+			if (b.matches === a.matches) {
+				return b.product.reviewScore - a.product.reviewScore;
+			}
+			return b.matches - a.matches;
+		});
+
+		res.status(200).json(productArray);
 	} catch (err) {
 		res.status(500).json({ message: err });
 	}

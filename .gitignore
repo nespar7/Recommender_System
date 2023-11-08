@@ -4,3 +4,5 @@ client/node_modules
 .vscode/
 synthesize/.env
 synthesize/products.csv
+node_modules/
+```

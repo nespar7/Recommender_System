@@ -1,0 +1,24 @@
+{
+	"name": "uc_project",
+	"version": "1.0.0",
+	"description": "[Surya Prakash](https://www.github.com/nespar7)",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "concurrently \"cd client && npm start\" \"cd api && npm start\""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nespar7/Recommender_System.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/nespar7/Recommender_System/issues"
+	},
+	"homepage": "https://github.com/nespar7/Recommender_System#readme",
+	"dependencies": {
+		"concurrently": "^8.2.2"
+	}
+}
