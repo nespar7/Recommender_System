@@ -34,5 +34,5 @@ with open('products.csv', 'r') as file:
 # for each object in the list, make a POST request to the API
 
 for product in data:
-    response = requests.post('http://localhost:3000/api/product', json=product)
+    response = requests.post('http://localhost:3004/api/product', json=product)
     print(response.text)

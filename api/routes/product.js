@@ -26,6 +26,10 @@ router.post("/", async (req, res) => {
 // update product by id
 router.put("/:id", async (req, res) => {
 	const currentProduct = await Product.findById(req.params.id);
+	const score = req.body.reviewScore;
+	currentProduct.reviewScore = currentProduct.reviewScore * currentProduct.reviews + score;
+	currentProduct.reviews += 1;
+	currentProduct.reviewScore = currentProduct.reviewScore / currentProduct.reviews;
 
 	await currentProduct.updateOne({ $set: req.body });
 	res.status(200).json({ message: "product updated" });

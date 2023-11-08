@@ -7,18 +7,10 @@ const userSchema = mongoose.Schema({
 	interactions: [
 		{
 			tag: String,
-			searchScore: {
+			score: {
 				type: Number,
 				default: 0,
-			},
-			viewScore: {
-				type: Number,
-				default: 0,
-			},
-			clickScore: {
-				type: Number,
-				default: 0,
-			},
+			}
 		},
 	],
 });

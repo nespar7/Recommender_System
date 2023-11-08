@@ -2,9 +2,11 @@ const User = require("../models/User");
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 
 // Create User
 router.post("/create", async (req, res) => {
+	console.log(req.body);
 	try {
 		const salt = await bcrypt.genSalt(7);
 		const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -25,6 +27,7 @@ router.post("/create", async (req, res) => {
 		const saveUser = await newUser.save();
 		res.status(200).json(saveUser);
 	} catch (e) {
+		console.log(e);
 		res.status(500).json({ message: e });
 	}
 });

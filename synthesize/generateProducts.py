@@ -7,7 +7,7 @@ settopwear = ['tshirt', 'shirt', 'polo', 'sweatshirt', 'hoodies']
 setbottomwear = ['trousers', 'jeans', 'shorts', 'boxers', 'formals', 'trackpants']
 setshoes = ['formal', 'sports', 'sneakers', 'socks', 'sandals', 'belted']
 set3 = ['red', 'green', 'yellow', 'blue', 'black', 'purple', 'orange', 'cyan', 'white', 'lilac', 'lavender']
-set4 = ['s', 'm', 'l', 'xl', 'xxl', 'xxxl']
+set4 = ['cotton', 'wool', 'synthetic', 'denim', 'leather', 'silk']
 
 # Generate the dataset
 dataset = []
@@ -25,8 +25,9 @@ for i in range(100):
     
     # Randomly pick from set3 and set4
     choice_set3 = random.choice(set3)
-    choice_set4 = random.choice(set4)
     
+    choice_set4 = random.choice(set4)
+
     # Form the tags
     tags = f"{choice_set1} {choice_set} {choice_set3} {choice_set4}"
     
