@@ -1,0 +1,58 @@
+
+.product {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    /* Makes sure the image does not bleed outside the border-radius */
+}
+
+.productImage {
+    align-self: center;
+    width: 252px;
+    height: 350px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Image container takes the full width of the card */
+    overflow: hidden;
+    /* Ensures the image doesn't overflow its container */
+}
+
+.productImage img.productImg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    
+}
+
+.title,
+.price,
+.tags {
+    padding: 0.5rem;
+    /* adds padding inside the product card */
+    margin: 0.5rem 0;
+    /* adds margin between elements inside the card */
+}
+
+.purchaseButton {
+    padding: 0.5rem;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    margin: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    /* position: ; */
+}
+
+.purchaseButton:hover {
+    background-color: #0056b3;
+}

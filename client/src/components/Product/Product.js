@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Navigate } from "react-router";
+import "./product.css";
 
 function Product({ currentProduct }) {
 	const { user } = useContext(AuthContext);
+	console.log(currentProduct);
 
 	const purchaseHandler = async (e) => {
 		e.preventDefault();
@@ -13,7 +15,7 @@ function Product({ currentProduct }) {
 			// Make a call to the backend to purchase the product
 			try {
 				await axios.put(`/api/user/${user._id}`, {
-					tags: currentProduct.tags,
+					productId: currentProduct._id,
 					type: "purchase",
 				});
 				console.log("purchase successful");
@@ -27,17 +29,17 @@ function Product({ currentProduct }) {
 	};
 
 	return (
-		<>
+		<div className="product">
 			{/* First div for an image */}
 			<div className="productImage">
 				<img
-					src={currentProduct.productImage}
+					src={currentProduct.imageLink}
 					alt="noImageAvailable"
 					className="productImg"
 				/>
 			</div>
 			<div className="title">{`${currentProduct.name}`}</div>
-			<div className="price">{`${currentProduct.price}`}</div>
+			<div className="price">{`price: ${currentProduct.price}`}</div>
 			<div className="tags">
 				{/* concatenate each tag in currentProduct.tags as a space seperated string */}
 				{currentProduct.tags.join(" ")}
@@ -45,7 +47,7 @@ function Product({ currentProduct }) {
 			<div className="purchaseButton" onClick={purchaseHandler}>
 				Purchase
 			</div>
-		</>
+		</div>
 	);
 }
 

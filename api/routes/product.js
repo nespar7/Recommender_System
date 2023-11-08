@@ -15,6 +15,8 @@ router.post("/", async (req, res) => {
 		productImage: req.body.productImage,
 		description: req.body.description,
 		tags: req.body.tags,
+		imageLink: req.body.imageLink,
+		reviewScore: req.body.review,
 	});
 
 	try {
@@ -50,8 +52,47 @@ router.put("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
 	try {
 		const products = await Product.find();
-		res.status(200).json(products);
+		const userId = req.body.userId;
+		const user = User.findById(userId);
+		let searchTags = user.mostRelevantTags;
+		if (!searchTags) {
+			searchTags = [];
+		}
+		// append userTags to searchTags
+
+		let productArray = [];
+
+		// loop through products and find number of matching tags
+		products.forEach((product) => {
+			let matches = 0;
+			product.tags.forEach((tag) => {
+				if (searchTags.includes(tag)) {
+					matches += 1;
+				}
+			});
+			productArray.push({ product: product, matches: matches });
+		});
+
+		// sort by number of matches
+		productArray.sort((a, b) => {
+			if (b.matches === a.matches) {
+				return b.product.reviewScore - a.product.reviewScore;
+			}
+			return b.matches - a.matches;
+		});
+
+		productArray = productArray
+			.map((product) => {
+				console.log(product.product);
+				return product.product;
+			})
+			.slice(0, 20);
+
+		// console.log(productArray);
+		// send first 20 products
+		res.status(200).json(productArray);
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({ message: err });
 	}
 });
@@ -75,8 +116,10 @@ router.get("/search", async (req, res) => {
 		// loop through products and find number of matching tags
 		products.forEach((product) => {
 			let matches = 0;
-			product.tags.forEach((tag) => {
-				if (searchTags.includes(tag)) {
+			// for each search tag, check if it is in the product tags
+			searchTags.forEach((tag) => {
+				// if it is, increment matches
+				if (product.tags.includes(tag)) {
 					matches += 1;
 				}
 			});
@@ -91,7 +134,16 @@ router.get("/search", async (req, res) => {
 			return b.matches - a.matches;
 		});
 
-		res.status(200).json(productArray);
+		// console.log(productArray);
+		// send first 20 products
+		res.status(200).json(
+			productArray
+				.map((product) => {
+					console.log(product.product);
+					return product.product;
+				})
+				.slice(0, 20)
+		);
 	} catch (err) {
 		res.status(500).json({ message: err });
 	}

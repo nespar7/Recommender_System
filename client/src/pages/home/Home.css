@@ -1,3 +1,18 @@
 h1 {
     font-size: 16px;
 }
+
+.homeContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.productsListing {
+    max-height: 90vh;
+    overflow-y: scroll;
+}
+
+.filterSideBar {
+    max-height: 90vh;
+    overflow-y: scroll;
+}

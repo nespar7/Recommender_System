@@ -14,13 +14,16 @@ import csv
 data = []
 
 # read the csv file
-with open('products.csv', 'r') as file:
+with open('products_with_reviews.csv', 'r') as file:
     # read the lines
 
     lines = file.readlines()
 
     # for each line, split the line by comma and create a dictionary
     for line in lines:
+        print(line)
+        if line == '\n':
+            continue
         try:
             line = line.split(',')
             print(float((line[4][:-1])))
@@ -30,7 +33,8 @@ with open('products.csv', 'r') as file:
                 'tags': line[2].split(' '),
                 'imageLink': line[3],
                 # remove the trailing \n from the price
-                'price': float(line[4][:-1])
+                'price': float(line[4]),
+                'review': float(line[5][:-1]),  # remove the trailing \n from the review
             }
         except Exception as e:
             print(e)
@@ -38,6 +42,7 @@ with open('products.csv', 'r') as file:
     
         # append the dictionary to the list
         data.append(product)
+        print(product)
 
 # for each object in the list, make a POST request to the API
 print(len(data))

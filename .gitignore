@@ -5,4 +5,4 @@ client/node_modules
 synthesize/.env
 synthesize/products.csv
 node_modules/
-```
+randomize.py

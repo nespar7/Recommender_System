@@ -22,6 +22,8 @@ router.post("/create", async (req, res) => {
 			_id: new mongoose.Types.ObjectId(),
 			username: req.body.username,
 			password: hashedPassword,
+			// interactions is a 40 element array with all 0s
+			// interactions: Array(40).fill(0),
 		});
 
 		const saveUser = await newUser.save();
