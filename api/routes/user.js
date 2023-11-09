@@ -54,6 +54,7 @@ router.put("/:id", async (req, res) => {
 	try {
 		if (type !== "purchase" && type !== "view") {
 			res.status(400).send("Invalid type");
+			return;
 		}
 		const product = await Product.findById(productId);
 		const tags = product.tags;

@@ -1,38 +1,113 @@
-import React from "react";
+import React, { useState } from "react";
 import "./FilterSideBar.css";
-// import { Button } from "react-bootstrap";
-import { useState } from "react";
 
-const filters = [
-	"Explore",
-	"Plugins",
-	"FigJam",
-	"Design systems",
-	"Wireframes",
-	"Illustrations",
-	"Icons",
-	"Typography",
-	"Mobile design",
-	"Web design",
-	"UI kits",
-];
+const tagGroups = {
+	"Set 1 - Categories": ["topwear", "bottomwear", "footwear"],
+	"Set 2 - Topwear": [
+		"tshirt",
+		"shirt",
+		"polo",
+		"sweatshirt",
+		"hoodies",
+		"vest",
+	],
+	"Set 3 - Bottomwear": [
+		"trousers",
+		"jeans",
+		"shorts",
+		"boxers",
+		"formals",
+		"trackpants",
+		"pajamas",
+	],
+	"Set 4 - Shoes": [
+		"formal",
+		"running",
+		"sneakers",
+		"socks",
+		"sandals",
+		"belted",
+		"studs",
+	],
+	"Set 5 - Colors": [
+		"red",
+		"green",
+		"yellow",
+		"blue",
+		"black",
+		"purple",
+		"orange",
+		"cyan",
+		"white",
+		"lilac",
+		"lavender",
+	],
+	"Set 6 - Materials": [
+		"cotton",
+		"wool",
+		"synthetic",
+		"denim",
+		"leather",
+		"silk",
+	],
+};
 
-function FilterSideBar() {
-	const [selectedFilter, setSelectedFilter] = useState(filters[0]);
+function FilterSideBar({ filterHandler }) {
+	const [selectedTags, setSelectedTags] = useState([]);
+
+	// const filterHanlder = props.filterHanlder;
+
+	const handleTagClick = (e, tag) => {
+		e.stopPropagation();
+		console.log(tag);
+		console.log(selectedTags);
+
+		const index = selectedTags.indexOf(tag);
+		if (index === -1) {
+			setSelectedTags((prevSelectedTags) => [...prevSelectedTags, tag]);
+		} else {
+			setSelectedTags((prevSelectedTags) => [
+				...prevSelectedTags.slice(0, index),
+				...prevSelectedTags.slice(index + 1),
+			]);
+		}
+	};
+
+	const isSelected = (tag) => {
+		const selected = selectedTags.indexOf(tag) !== -1;
+		return selected;
+	};
+
+	const filterButtonClickHandler = () => {
+		filterHandler(selectedTags);
+	};
 
 	return (
-		<div className="sidebar">
-			{filters.map((filter) => (
+		<div className="filter">
+			<div className="filterButtonHolder">
 				<button
-					key={filter}
-					className={`filter-button ${
-						filter === selectedFilter ? "selected" : ""
-					}`}
-					onClick={() => setSelectedFilter(filter)}
+					className="filterButton"
+					onClick={() => filterButtonClickHandler()}
 				>
-					{filter}
+					Filter
 				</button>
-			))}
+			</div>
+			<div className="sidebar">
+				{Object.entries(tagGroups).map(([groupName, tags]) => (
+					<div key={groupName} className="tag-group">
+						<h3 className="group-name">{groupName}</h3>
+						{tags.map((tag) => (
+							<button
+								key={tag}
+								className={`tag ${isSelected(tag) ? "selected" : ""}`}
+								onClick={(e) => handleTagClick(e, tag)}
+							>
+								{tag}
+							</button>
+						))}
+					</div>
+				))}
+			</div>
 		</div>
 	);
 }

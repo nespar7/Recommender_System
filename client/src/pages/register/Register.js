@@ -10,15 +10,11 @@ function Register() {
 	const username = useRef();
 	const password = useRef();
 	const confirmPassword = useRef();
-	const { isFetching, error, dispatch } = useContext(AuthContext);
+	const { user, isFetching, error, dispatch } = useContext(AuthContext);
 	const nav = useNavigate();
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-
-		console.log(username.current.value);
-		console.log(password.current.value);
-		console.log(confirmPassword.current.value);
 
 		// Check if the passwords match
 
@@ -27,6 +23,14 @@ function Register() {
 				{ username: username.current.value, password: password.current.value },
 				dispatch
 			);
+
+			if (error) {
+				alert(error);
+				nav("/register");
+			} else {
+				console.log(user);
+				nav("/");
+			}
 		} else {
 			alert("Passwords do not match");
 		}

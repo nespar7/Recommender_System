@@ -22,8 +22,15 @@
     flex: 3;
 }
 
+.topbarMiddle {
+    flex: 6;
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
 .topbarRight {
-    flex: 9;
+    flex: 3;
     display: flex;
     justify-content: end;
     margin-right: 16px;

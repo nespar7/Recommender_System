@@ -11,7 +11,7 @@ function ProductsList(props) {
 		<div className="products">
 			{/* map through the products array and render a ProductCard for each product */}
 			{products.map((product) => {
-				return <Product currentProduct={product} />;
+				return <Product key={product.name} currentProduct={product} />;
 			})}
 		</div>
 	);

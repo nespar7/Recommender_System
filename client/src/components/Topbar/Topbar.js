@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 
 export default function Topbar() {
-	const { dispatch } = useContext(AuthContext);
+	const { user, dispatch } = useContext(AuthContext);
 
 	return (
 		<>
@@ -15,6 +15,7 @@ export default function Topbar() {
 						<span className="logo">PNTU</span>
 					</Link>
 				</div>
+				<div className="topbarMiddle">Hello {user.username}</div>
 				<div className="topbarRight">
 					<div
 						className="logout"

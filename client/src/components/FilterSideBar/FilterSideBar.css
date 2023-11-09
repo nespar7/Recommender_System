@@ -1,20 +1,69 @@
 .sidebar {
-    display: flex;
-    flex-direction: column;
     width: 200px;
-    padding: 10px;
+    /* Reduced width for the sidebar */
+    background: #f9f9f9;
+    /* Change this as needed */
+    padding: 8px;
+    overflow-y: auto;
+    /* Enables scrolling if the content is too long */
+    font-size: 12px;
+    /* Reduced font size for sidebar content */
 }
 
-.filter-button {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    color: black;
-    background-color: white;
+.tag-group {
+    margin-bottom: 15px;
 }
 
-.filter-button.selected {
-    color: white;
-    background-color: blue;
+.group-name {
+    font-size: 14px;
+    /* Reduced font size for group names */
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.tag {
+    display: inline-block;
+    /* Allows tags to sit next to each other */
+    padding: 5px 10px;
+    /* Reduced padding */
+    margin: 0 5px 5px 0;
+    /* Reduced margin */
+    border: 1px solid #ccc;
+    /* Slightly thinner border */
+    border-radius: 15px;
+    /* Adjusted border-radius */
+    background-color: #fff;
+    /* White background */
+    cursor: pointer;
+    outline: none;
+    font-size: 12px;
+    /* Reduced font size for tags */
+    transition: all 0.3s ease;
+}
+
+.tag:hover {
+    background-color: #f0f0f0;
+    /* Slightly darker background on hover */
+}
+
+.tag.selected {
+    color: #fff;
+    /* White text for selected tags */
+    background-color: #007bff;
+    /* Bootstrap primary color for example */
+    border-color: #007bff;
+}
+
+.filterButtonHolder{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+
+}
+
+.filterButton {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    width: 80%;
 }

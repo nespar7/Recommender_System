@@ -22,12 +22,28 @@ export default function Home() {
 		fetchProducts();
 	}, [user]);
 
+	const filterHandler = async (filter) => {
+		console.log(filter);
+		console.log(user._id);
+
+		const tagString = filter.join(" ");
+
+		const products = await axios.get("/api/product/search", {
+			params: {
+				userId: user._id,
+				tags: tagString,
+			},
+		});
+		console.log(products["data"]);
+		setProducts(products["data"]);
+	};
+
 	return (
 		<>
 			<Topbar />
 			<div className="homeContainer">
 				<div className="filterSideBar">
-					<FilterSideBar />
+					<FilterSideBar filterHandler={filterHandler} />
 				</div>
 				<div className="productsListing">
 					<ProductsList products={products} />

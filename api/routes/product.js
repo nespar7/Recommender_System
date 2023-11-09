@@ -24,6 +24,7 @@ router.post("/", async (req, res) => {
 
 		if (product) {
 			res.status(409).send("Product already exists");
+			return;
 		}
 
 		const savedProduct = await newProduct.save();
@@ -83,7 +84,7 @@ router.get("/", async (req, res) => {
 
 		productArray = productArray
 			.map((product) => {
-				console.log(product.product);
+				// console.log(product.product);
 				return product.product;
 			})
 			.slice(0, 20);
@@ -101,10 +102,14 @@ router.get("/", async (req, res) => {
 router.get("/search", async (req, res) => {
 	try {
 		const products = await Product.find();
-		const searchTags = req.body.tags;
-		const userId = req.body.userId;
+		console.log(req.query);
+		const searchTags = req.query.tags.split(" ");
+		const userId = req.query.userId;
+
+		console.log(searchTags);
+
 		const user = User.findById(userId);
-		const userTags = user.mostRelevantTags;
+		const userTags = user.mostRelevantTags ? user.mostRelevantTags : [];
 		// append userTags to searchTags
 		userTags.forEach((tag) => {
 			if (!searchTags.includes(tag)) {
@@ -139,12 +144,13 @@ router.get("/search", async (req, res) => {
 		res.status(200).json(
 			productArray
 				.map((product) => {
-					console.log(product.product);
+					// console.log(product.product);
 					return product.product;
 				})
 				.slice(0, 20)
 		);
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({ message: err });
 	}
 });

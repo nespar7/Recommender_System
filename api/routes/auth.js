@@ -13,6 +13,7 @@ router.post("/create", async (req, res) => {
 
 		if (search) {
 			res.status(409).send("Username already exists");
+			return;
 		}
 
 		const salt = await bcrypt.genSalt(7);
@@ -41,6 +42,7 @@ router.post("/login", async (req, res) => {
 
 		if (!user) {
 			res.status(404).send("User not found");
+			return;
 		}
 
 		const validPassword = await bcrypt.compare(
