@@ -53,12 +53,17 @@ router.put("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
 	try {
 		const products = await Product.find();
-		const userId = req.body.userId;
-		const user = User.findById(userId);
+		const userId = req.query.userId;
+		console.log(req.query);
+		const user = await User.findById(userId);
+		console.log(user._id);
+		console.log(user.mostRelevantTags);
 		let searchTags = user.mostRelevantTags;
 		if (!searchTags) {
 			searchTags = [];
 		}
+
+		console.log(searchTags);
 		// append userTags to searchTags
 
 		let productArray = [];

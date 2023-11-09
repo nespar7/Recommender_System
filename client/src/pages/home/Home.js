@@ -15,7 +15,11 @@ export default function Home() {
 
 	useEffect(() => {
 		const fetchProducts = async () => {
-			const products = await axios.get("/api/product", user._id);
+			const products = await axios.get("/api/product", {
+				params: {
+					userId: user._id,
+				},
+			});
 			setProducts(products["data"]);
 		};
 

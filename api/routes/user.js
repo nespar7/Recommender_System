@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const Product = require("../models/Product");
+const mqtt = require("mqtt");
 
 // array
 const interactionTags = [
@@ -47,6 +48,39 @@ const interactionTags = [
 	"pajamas",
 	"studs",
 ];
+
+const client = mqtt.connect("mqtt://localhost:1883");
+client.on("connect", () => {
+	console.log("connected to mqtt");
+	client.subscribe("getRecommendations");
+});
+
+let g_scores = Array(40).fill(0);
+
+// client.on("message", async (topic, message) => {
+// 	const msg = message.toString();
+// 	// convert msg into an array
+// 	const scores = JSON.parse(msg);
+// 	console.log(scores, typeof scores);
+
+// 	// set the global scores array to the scores array
+// 	g_scores = scores;
+// });
+
+function waitForScores() {
+	return new Promise((resolve, reject) => {
+		client.once("message", (topic, message) => {
+			try {
+				const scores = JSON.parse(message.toString());
+				console.log(scores, typeof scores);
+				resolve(scores);
+			} catch (e) {
+				console.log(e);
+				reject(e);
+			}
+		});
+	});
+}
 
 router.put("/:id", async (req, res) => {
 	const { productId, type } = req.body;
@@ -125,10 +159,13 @@ router.put("/:id", async (req, res) => {
 			}
 		});
 
-		// scores is an array with 40 random numbers between 0 and 5
-		let scores = Array(40).fill(0);
-		// Get response from model
 		// scores = model(reqInteractionsArray);
+		await client.publish(
+			"recommendations",
+			JSON.stringify(reqInteractionsArray)
+		);
+
+		const scores = await waitForScores();
 
 		// Update user mostRelevantTags array such that the tag in interactionTags with the highest score in the scores array is at the top
 		// The indices of the scores array correspond to the indices of the interactionTags array
