@@ -38,6 +38,13 @@ export default function Home() {
 				tags: tagString,
 			},
 		});
+
+		// post to api/user/:id with tags and type: "view"
+		await axios.put(`/api/user/${user._id}`, {
+			tags: filter,
+			type: "view",
+		});
+
 		console.log(products["data"]);
 		setProducts(products["data"]);
 	};
@@ -49,8 +56,8 @@ export default function Home() {
 				<div className="filterSideBar">
 					<FilterSideBar filterHandler={filterHandler} />
 				</div>
-				<div className="productsListing">
-					<ProductsList products={products} />
+				<div className="productsListing" id="relevantProducts">
+					<ProductsList products={products} message="Products you might like" />
 				</div>
 			</div>
 		</>

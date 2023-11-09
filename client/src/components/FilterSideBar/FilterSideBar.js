@@ -82,6 +82,12 @@ function FilterSideBar({ filterHandler }) {
 		filterHandler(selectedTags);
 	};
 
+	const filterResetHandler = () => {
+		setSelectedTags([]);
+		// reload the page
+		window.location.reload();
+	};
+
 	return (
 		<div className="filter">
 			<div className="filterButtonHolder">
@@ -90,6 +96,9 @@ function FilterSideBar({ filterHandler }) {
 					onClick={() => filterButtonClickHandler()}
 				>
 					Filter
+				</button>
+				<button className="filterButton" onClick={filterResetHandler}>
+					Reset Filters
 				</button>
 			</div>
 			<div className="sidebar">

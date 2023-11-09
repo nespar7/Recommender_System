@@ -163,6 +163,7 @@ router.get("/search", async (req, res) => {
 // get product by id
 router.get("/:id", async (req, res) => {
 	try {
+		console.log(req.params.id);
 		const product = await Product.findById(req.params.id);
 		res.status(200).json(product);
 	} catch (err) {

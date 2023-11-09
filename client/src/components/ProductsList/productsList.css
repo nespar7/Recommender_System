@@ -5,3 +5,19 @@
     padding: 1rem;
     width: 80vw;
 }
+
+.message {
+    font-family: 'Arial', sans-serif;
+    /* Use a font that suits your design */
+    font-size: 24px;
+    /* Adjust size as needed */
+    color: #333;
+    /* This is a dark gray, but use whatever color fits your design */
+    margin: 20px 0;
+    /* Add some space above and below the header */
+    padding: 10px 0;
+    /* Add some padding above and below the text if needed */
+    text-align: center;
+    /* Center the text if it fits your design */
+    border-bottom: 2px solid #ddd;
+}

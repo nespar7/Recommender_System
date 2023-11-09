@@ -14,11 +14,18 @@ function Product({ currentProduct }) {
 		if (user) {
 			// Make a call to the backend to purchase the product
 			try {
+				// const product = await axios.get(`/api/product/${currentProduct._id}`);
+				console.log("product", currentProduct);
+				const tags = currentProduct.tags;
+				console.log("tags", tags);
 				await axios.put(`/api/user/${user._id}`, {
-					productId: currentProduct._id,
+					product: currentProduct,
+					tags: tags,
 					type: "purchase",
 				});
 				console.log("purchase successful");
+				// Reload the page
+				window.location.reload();
 			} catch (error) {
 				console.log(error);
 			}

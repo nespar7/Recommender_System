@@ -58,6 +58,7 @@
     display: flex;
     justify-content: center;
     margin-top: 10px;
+    width: 90%;
 
 }
 
@@ -66,4 +67,5 @@
     background-color: #337ab7;
     border-color: #2e6da4;
     width: 80%;
+    margin-left: 10px;
 }

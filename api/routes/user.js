@@ -83,19 +83,19 @@ function waitForScores() {
 }
 
 router.put("/:id", async (req, res) => {
-	const { productId, type } = req.body;
+	const { product, tags, type } = req.body;
 
+	console.log("tags", tags, type);
 	try {
 		if (type !== "purchase" && type !== "view") {
 			res.status(400).send("Invalid type");
 			return;
 		}
-		const product = await Product.findById(productId);
-		const tags = product.tags;
+		// const product = await Product.findById(productId);
+		// const tags = product.tags;
 
 		const user = await User.findById(req.params.id);
 		// get the users interactions array
-		console.log(user);
 		tags.map((tag) => {
 			// If no json object with object.tag === interaction.tag exists, create one in the user interactions array
 			if (
@@ -177,9 +177,10 @@ router.put("/:id", async (req, res) => {
 		// user.mostRelevantTags = 5 tags from mostRelevantTags array after removing the score property;
 		user.mostRelevantTags = mostRelevantTags.slice(0, 5).map((tag) => tag.tag);
 
-		// Update product interactions
-		product.interactions += type === "purchase" ? 3 : 1;
-		console.log(reqInteractions);
+		if (product) {
+			// Update product interactions
+			product.interactions += type === "purchase" ? 3 : 1;
+		}
 
 		const updatedUser = await user.save();
 		res.status(200).json(updatedUser);
