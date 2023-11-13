@@ -6,3 +6,7 @@ synthesize/.env
 synthesize/products.csv
 node_modules/
 randomize.py
+*.pem
+*.key
+*.crt
+*.ps1
