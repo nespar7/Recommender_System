@@ -1,7 +1,8 @@
+.vscode/
 api/node_modules
 api/.env
 client/node_modules
-.vscode/
+model/.env
 synthesize/.env
 synthesize/products.csv
 node_modules/
@@ -11,3 +12,4 @@ randomize.py
 *.crt
 *.ps1
 model/__pycache__
+MQkey.pem

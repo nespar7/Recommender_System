@@ -1,10 +1,13 @@
 import paho.mqtt.client as mqtt
 from model import model
 import json
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Waits on port 1883 for incoming user inputs from the topic recommendations
 # When a new user input is received, the model is run and the results are published to the topic recommendations
-
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
@@ -24,9 +27,10 @@ def on_message(client, userdata, msg):
     client.publish("getRecommendations", ratings_string)
 
 
+instane_public_ip = os.getenv("INSTANCE_PUBLIC_IP")
 port = 1883
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
-client.connect("13.236.92.40", port, 60)
+client.connect(instane_public_ip, port, 60)
 client.loop_forever()
