@@ -10,3 +10,4 @@ randomize.py
 *.key
 *.crt
 *.ps1
+model/__pycache__

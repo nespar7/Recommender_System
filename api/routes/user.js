@@ -49,7 +49,7 @@ const interactionTags = [
 	"studs",
 ];
 
-const client = mqtt.connect("mqtt://localhost:1883");
+const client = mqtt.connect("mqtt://13.236.92.40:1883");
 client.on("connect", () => {
 	console.log("connected to mqtt");
 	client.subscribe("getRecommendations");
