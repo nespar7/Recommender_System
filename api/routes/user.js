@@ -4,6 +4,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const Product = require("../models/Product");
 const mqtt = require("mqtt");
+const dotenv = require("dotenv");
 
 // array
 const interactionTags = [
@@ -49,7 +50,9 @@ const interactionTags = [
 	"studs",
 ];
 
-const client = mqtt.connect("mqtt://3.27.72.48:1883");
+dotenv.config();
+
+const client = mqtt.connect(`mqtt://${process.env.INSTANCE_PUBLIC_IP}:1883`);
 client.on("connect", () => {
 	console.log("connected to mqtt");
 	client.subscribe("getRecommendations");
@@ -85,7 +88,7 @@ function waitForScores() {
 router.put("/:id", async (req, res) => {
 	const { product, tags, type } = req.body;
 
-	console.log("tags", tags, type);
+	console.log("user update tags", tags, type);
 	try {
 		if (type !== "purchase" && type !== "view") {
 			res.status(400).send("Invalid type");
