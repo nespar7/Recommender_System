@@ -13,3 +13,5 @@ randomize.py
 *.ps1
 model/__pycache__
 MQkey.pem
+*package.json
+*package-lock.json
