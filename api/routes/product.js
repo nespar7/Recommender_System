@@ -63,7 +63,7 @@ router.get("/", async (req, res) => {
 			searchTags = [];
 		}
 
-		console.log(searchTags);
+		console.log("search for ", searchTags);
 		// append userTags to searchTags
 
 		let productArray = [];
