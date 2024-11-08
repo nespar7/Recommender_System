@@ -16,8 +16,8 @@
 * Make sure to add your ip address in the accepted address list. set it to accept 0.0.0.0/0 to accept from all addeesses.
 * Paste it in place of the similar string in the environment folder(`local-folder/api/.env`) as `MONGO_URL="your_connection_string"`
 * Run the api using `nodemon` in the api directory
-* Run the product generator using the [generator](./model/synthesize/generateProducts)
-* Run [product adder](./model/synthesize/generateProducts) to add products to mongo]
+* Run the product generator using the [generator](./synthesize/generateProducts)
+* Run [product adder](./synthesize/addProducts) to add products to mongo]
   
 ## Creating Mqtt broker
 * Create an EC2 instance in AWS console with the free tier. Almost all of it can be left at default, the OS should be Ubuntu
