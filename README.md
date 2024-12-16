@@ -22,6 +22,8 @@
 ## Creating Mqtt broker
 * Create an EC2 instance in AWS console with the free tier. Almost all of it can be left at default, the OS should be Ubuntu
 * Connect to the EC2 instance. AWS console gives a pretty good UI for this.
+* Add an inbound rule to the security group associated with the instance
+    - Custom TCP | 1883 | 0.0.0.0/0
 * Run these commands for installing Mosquitto.
     1. sudo apt update
     2. sudo apt install -y mosquitto mosquitto-clients
